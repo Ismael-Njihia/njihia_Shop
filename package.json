@@ -1,0 +1,29 @@
+{
+  "name": "njihia_shop",
+  "version": "2.0.0",
+  "description": "Njihia shop ecommerce site MERN ",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend" ,
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ismael-Njihia/njihia_Shop.git"
+  },
+  "author": "ismael",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ismael-Njihia/njihia_Shop/issues"
+  },
+  "homepage": "https://github.com/Ismael-Njihia/njihia_Shop#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
