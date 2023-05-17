@@ -1,35 +1,33 @@
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react";
+import {useGetProductDetailsQuery} from '../slices/productsApiSlice'
+
 import { Link} from "react-router-dom";
  import {Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap';
  import Rating from '../components/Rating';
-import axios from "axios";
-const ProductScreen = () => {
-    const [product, setProduct] = useState({})
 
-    const {id: productId} = useParams()
-    useEffect(()=>{
-        const fetchProduct = async ()=>{
-           const {data} = await axios.get(`/api/products/${productId}`);
-           setProduct(data);
-        };
-     
-         fetchProduct();
-    }, [productId])
+const ProductScreen = () => {
+    const {id: productId} = useParams();
+    const {data: product, isLoading, error} = useGetProductDetailsQuery(productId);
+  
 
   return (
     <>
-        <Link className='btn btn-light my-3' to='/'>
-            Go Back
-        </Link>
+       <Link className='btn btn-light my-3' to='/'>
+         Go Back
+       </Link>
+       {isLoading? (
+        <h2>Loading .....</h2>
+       ) : error ? (
+        <div>{error?.data?.message || error.error}</div>
+       ) : (
 
-        <Row>
+            <Row>
             <Col md={5}>
                 <Image src={product.image} alt={product.name} fluid/>
 
-             </Col>
+            </Col>
 
-             <Col md={4}>
+            <Col md={4}>
                 <ListGroup variant='flush'>
                 <ListGroup.Item>
                     <h3>{product.name}</h3>
@@ -46,11 +44,11 @@ const ProductScreen = () => {
                 </ListGroup.Item>
                     
 
-                 </ListGroup>
+                </ListGroup>
 
-             </Col>
+            </Col>
 
-             <Col md={3}>
+            <Col md={3}>
                 <Card>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
@@ -61,7 +59,7 @@ const ProductScreen = () => {
                             </Row>
                         </ListGroup.Item>
 
-                         <ListGroup.Item>
+                        <ListGroup.Item>
                             <Row>
                                 <Col>Status: </Col>
                                 <Col><strong>{product.countInStock > 0? 'Available' :
@@ -80,11 +78,13 @@ const ProductScreen = () => {
                     </ListGroup>
                 </Card>
 
-             </Col>
-        </Row>
-
-    </>
-  )
+            </Col>
+            </Row>
+       )
+}
+     </>
+ )
+  
 }
 
 export default ProductScreen

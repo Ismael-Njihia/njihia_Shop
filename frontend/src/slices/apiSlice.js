@@ -6,17 +6,11 @@ const baseQuery = fetchBaseQuery({
     baseUrl: Base_URL
 
 })
-
-
     export const apiSlice = createApi({
         baseQuery,
-        tagTypes:['Product',
-        'Order', 'User'
-    ],
+        tagTypes:['Product','Order', 'User'],
         endpoints:(builder)=>({
-            getProducts: builder.query({
-                query:()=>'/api/products'
-            }),
+           
             getProductById: builder.query({
                 query:(id)=>`/api/products/${id}`
             }),
