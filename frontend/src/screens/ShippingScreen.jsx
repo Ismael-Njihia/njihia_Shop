@@ -15,10 +15,6 @@ const ShippingScreen = () => {
     const [city, setCity] = useState()
     const [postalCode, setPostalCode] = useState()
     const [country, setCountry] = useState()
-
-   
-   
-   
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
