@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import {useState} from 'react'
+import { Form, Button} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
@@ -18,11 +18,11 @@ const ShippingScreen = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        dispatch(saveShippingAddress({address, city, postalCode, country}))
-        //navigate('/payment')
-    }
+  //  const submitHandler = (e) => {
+   //     e.preventDefault()
+   //     dispatch(saveShippingAddress({address, city, postalCode, country}))
+   //     navigate('/payment')
+   // }
     const submitHandlerBtn = (e) => {
         e.preventDefault()
         dispatch(saveShippingAddress({address, city, postalCode, country}))
@@ -32,7 +32,7 @@ const ShippingScreen = () => {
     <FormContainer>
         <CheckoutSteps step1 step2/>
         <h1>Shipping</h1>
-        <Form onClick={submitHandler}>
+        <Form >
             <Form.Group controlId='address' className="my-3">
                 <Form.Label>Address</Form.Label>
                 <Form.Control

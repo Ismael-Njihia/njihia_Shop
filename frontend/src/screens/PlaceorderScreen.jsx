@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
@@ -29,18 +29,19 @@ const PlaceorderScreen = () => {
     const placeOrderHandler = async ()=>{
        try{
         const res = await createOrder({
-        orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
         }).unwrap();
-        dispatch(clearCartItems())
+        //dispatch(clearCartItems())
         toast.success('Order Placed Successfully')
         navigate(`/order/${res._id}`)
-        
 
+        
        }catch(error){
           toast.error(error.message)
 

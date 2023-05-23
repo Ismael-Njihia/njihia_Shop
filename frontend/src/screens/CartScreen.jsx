@@ -59,7 +59,7 @@ const CartScreen = () => {
                                                 {[...Array(item.countInStock).keys()].map((x) => (
                                                     <option key={x + 1} value={x + 1}>
                                                         {x + 1}
-                                                        </option>
+                                                    </option>
                                                 ))}
 
                                             </Form.Control>
@@ -94,7 +94,7 @@ const CartScreen = () => {
                         type="button"
                         className="btn-block"
                         disabled={cartItems.length === 0}
-                        onClick ={ checkoutHandler}
+                        onClick ={checkoutHandler}
                         >
                             Proceed To Checkout
                         </Button>
