@@ -4,7 +4,10 @@ import {Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem, } from 'r
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/ordersApiSlice'
+import { useGetOrderDetailsQuery, 
+  usePayOrderMutation, 
+  useGetPayPalClientIdQuery,
+useDeliverOrderMutation } from '../slices/ordersApiSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import {toast} from 'react-toastify'
 
@@ -16,6 +19,9 @@ const OrderScreen = () => {
 
 
     const [payOrder, {isLoading: isLoadingPay, error: errorPay}] = usePayOrderMutation()
+
+
+    const [deliverOrder, {isLoading: loadingDeliver }] = useDeliverOrderMutation();
 
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer()
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery()
@@ -81,6 +87,19 @@ const OrderScreen = () => {
       await payOrder({orderId, details: { payer: {} }})
         refetch()
         toast.success('Payment Successful')
+    }
+
+    const deliverOrderHandler = async () =>{
+      try{
+        await deliverOrder(orderId);
+        refetch()
+        toast.success('Order Delivered')
+
+      }catch(error){
+        toast.error(error.data?.Message || error.message)
+        console.log(error)
+      }
+      
     }
    
     if(isLoading){
@@ -222,6 +241,22 @@ const OrderScreen = () => {
                           </ListGroup.Item>
                         )
                         
+                      }
+
+                      {loadingDeliver && <Loader/>}
+
+                      {
+                        userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                          <ListGroupItem>
+                            <Button 
+                            type='button' 
+                            className='btn btn-block'
+                            onClick={deliverOrderHandler} >
+                              Mark as Delivered
+
+                            </Button>
+                          </ListGroupItem>
+                        )
                       }
                   </ListGroup>
             </Card>
