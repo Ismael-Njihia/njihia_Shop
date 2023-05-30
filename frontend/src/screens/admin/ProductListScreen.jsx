@@ -1,9 +1,11 @@
 import { LinkContainer } from "react-router-bootstrap"
 import {Table, Button, Row, Col} from 'react-bootstrap';
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { useGetProductsQuery, useCreateProductMutation } from "../../slices/productsApiSlice";
+import { useGetProductsQuery,
+  useDeleteProductMutation,
+   useCreateProductMutation } from "../../slices/productsApiSlice";
 import {toast} from 'react-toastify';
 
 export const ProductListScreen = () => {
@@ -11,20 +13,30 @@ export const ProductListScreen = () => {
    
 
    const [createProduct, {isLoading: isLoadingCreate, error: errorCreate, success: successCreate}] = useCreateProductMutation();
-
-const deleteHandler = (id) => {
+   const [deleteProduct, {isLoading: isLoadingDelete, error: errorDelete, success: successDelete}] = useDeleteProductMutation();
+const deleteHandler = async (id) => {
   if(window.confirm(`Are you sure ${id}`)) {
     // delete products
+    try {
+      await deleteProduct(id)
+      toast.success('Product deleted')
+      refetch()
+      
+    } catch (error) {
+      toast.error(error?.data?.message  || error?.message)
+      
+    }
   }
 }
 const createProductHandler = async () =>{
   if(window.confirm(`Are you sure to create a new product?`)) {
     try{
       await createProduct()
+      toast.success('Product created')
       refetch()
 
     }catch(error){
-      toast.error(error?.data?.message  || error?.message)
+      toast.error(error?.data?.message  || error?.message || errorDelete)
     }
   }
 }
@@ -42,10 +54,13 @@ const createProductHandler = async () =>{
       </Button>
       </Col>
     </Row>
+
    { isLoadingCreate && <Loader />}
-   {successCreate && toast.success('Product Created')}
+   {isLoadingDelete && <Loader />}
+   
 
     {isLoading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
+      
       <>
       <Table striped bordered hover responsive className="table-sm">
         <thead>
