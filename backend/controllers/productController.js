@@ -82,6 +82,8 @@ const updateProduct = asyncHandler(async(req,res)=>{
         throw new Error('Product not found')
     }
 
+
+
 })
 
 
@@ -143,12 +145,32 @@ const createProductReview = asyncHandler(async(req,res)=>{
 
 })
 
+//getTopRated Products
+//route GET/api/products/top
+//access public
+const getTopProducts = asyncHandler(async(req,res)=>{
+    const products = await Product.find({}).sort({rating: -1}).limit(3);
+ try{
+    if(!products){
+        return res.status(404).json({error: 'No Products Found'});
+
+    }
+    res.json(products);
+}catch(error){
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.'})
+}
+
+});
+
 
 export  {getProducts, 
-    getProductById, 
+    
+    getProductById,
     createProduct,
     deleteProduct,
     updateProduct,
+    getTopProducts,
     
     
     createProductReview

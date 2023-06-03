@@ -6,7 +6,7 @@ import Loader from "../components/Loader"
 import Message from "../components/Message"
 import Paginate from "../components/Paginate"
 import {useGetProductsQuery} from '../slices/productsApiSlice'
-
+import ProductCarousel from "../components/ProductCarousel"
 
 const HomeScreen = () => {
   const {pageNumber, keyword} = useParams()
@@ -15,7 +15,7 @@ const HomeScreen = () => {
   return (
     <>
     {keyword && <h3 className="ml-auto">Search Results for {keyword}  </h3>}
-    {keyword && <Link to='/' className="btn btn-light mb-3">Go Back</Link>}
+    {!keyword ? <ProductCarousel/> : ( <Link to='/' className="btn btn-light mb-3">Go Back</Link>)}
      
     {
       isLoading ? (
