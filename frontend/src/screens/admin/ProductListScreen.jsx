@@ -16,8 +16,8 @@ export const ProductListScreen = () => {
    const {data, isLoading, error, refetch} = useGetProductsQuery({pageNumber});
    
 
-   const [createProduct, {isLoading: isLoadingCreate, error: errorCreate, success: successCreate}] = useCreateProductMutation();
-   const [deleteProduct, {isLoading: isLoadingDelete, error: errorDelete, success: successDelete}] = useDeleteProductMutation();
+   const [createProduct, {isLoading: isLoadingCreate}] = useCreateProductMutation();
+   const [deleteProduct, {isLoading: isLoadingDelete, error: errorDelete}] = useDeleteProductMutation();
 const deleteHandler = async (id) => {
   if(window.confirm(`Are you sure ${id}`)) {
     // delete products

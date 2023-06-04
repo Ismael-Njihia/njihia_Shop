@@ -7,6 +7,8 @@ import Message from "../components/Message"
 import Paginate from "../components/Paginate"
 import {useGetProductsQuery} from '../slices/productsApiSlice'
 import ProductCarousel from "../components/ProductCarousel"
+import Meta from '../components/Meta'
+
 
 const HomeScreen = () => {
   const {pageNumber, keyword} = useParams()
@@ -23,6 +25,8 @@ const HomeScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error?.data?.message || error.error}</Message> 
       ) : (<>
+
+      <Meta/>
         <h2>Latest Products</h2>
         <Row>
             {data.products.map((product) => (
