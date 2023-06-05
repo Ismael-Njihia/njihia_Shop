@@ -9,7 +9,9 @@ import Loader from '../components/Loader'
 import { useCreateOrderMutation } from '../slices/ordersApiSlice'
 import { clearCartItems } from '../slices/cartSlice'
 
-const PlaceorderScreen = () => {
+
+
+const PlaceOrderScreen = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const cart = useSelector((state) => state.cart)
@@ -133,6 +135,10 @@ const PlaceorderScreen = () => {
 
                     <ListGroup.Item>
                         {error && <Message variant='danger'>{error}</Message>}
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                        {error && <Message variant='danger'>{error}</Message>}
                         </ListGroup.Item>
 
                     <ListGroup.Item>
@@ -154,4 +160,4 @@ const PlaceorderScreen = () => {
   )
 }
 
-export default PlaceorderScreen
+export default PlaceOrderScreen
