@@ -150,6 +150,11 @@ const PlaceOrderScreen = () => {
                             isLoading && <Loader/>
                         }
                     </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Button type='button' className='btn-block' onClick= {()=> navigate('/payment')}>
+                            Back
+                        </Button>
+                    </ListGroup.Item>
 
                     </ListGroup>
                 </Card>
