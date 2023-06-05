@@ -11,7 +11,7 @@ import { clearCartItems } from '../slices/cartSlice'
 
 
 
-const PlaceOrderScreen = () => {
+const PlaceorderScreen = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const cart = useSelector((state) => state.cart)
@@ -150,11 +150,7 @@ const PlaceOrderScreen = () => {
                             isLoading && <Loader/>
                         }
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Button type='button' className='btn-block' onClick= {()=> navigate('/payment')}>
-                            Back
-                        </Button>
-                    </ListGroup.Item>
+                    
 
                     </ListGroup>
                 </Card>
@@ -165,4 +161,4 @@ const PlaceOrderScreen = () => {
   )
 }
 
-export default PlaceOrderScreen
+export default PlaceorderScreen
